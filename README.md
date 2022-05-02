@@ -46,8 +46,8 @@ Under "SPONSORS ADD INFO HERE" heading below, include the following:
 ---
 
 # Alchemix contest details
-- $118,750 USDC main award pot
-- $6,250 USDC gas optimization award pot
+- $118,750 DAI main award pot
+- $6,250 DAI gas optimization award pot
 - Join [C4 Discord](https://discord.gg/code4rena) to register
 - Submit findings [using the C4 form](https://code4rena.com/contests/2022-05-Alchemix-contest/submit)
 - [Read our guidelines for more details](https://docs.code4rena.com/roles/wardens)
