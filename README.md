@@ -117,7 +117,7 @@ An adapter to invest user tokens into Vesper.
 
 ### Automated Market Operator
 #### TransmuterConduit.sol (43 loc)
-A helper contract for admins to move funds between TransmuterV1 and TransmuterV2 during the protocol upgrade.
+A helper contract for admins to move funds between transmuters and the AMO.
 #### EthAssetManager.sol (724 loc)
 An automated market operator to ensure peg stability on alETH and ETH.
 #### ThreePoolAssetManager.sol (1040 loc)
@@ -171,27 +171,23 @@ A working instance of Alchemix v2 has been deployed on Ethereum mainnet in a bet
 
 The following contracts are deployed:
 
-alUSD Alchemist: 0x5C6374a2ac4EBC38DeA0Fc1F8716e5Ea1AdD94dd
-alETH Alchemist: 0x062Bf725dC4cDF947aa79Ca2aaCCD4F385b13b5c
-
-Transmuter (DAI): 0xA840C73a004026710471F727252a9a2800a5197F
-Transmuter (USDC): 0x49930AD9eBbbc0EB120CCF1a318c3aE5Bb24Df55
-Transmuter (USDT): 0xfC30820ba6d045b95D13a5B8dF4fB0E6B5bdF5b9
-TransmuterBuffer: 0x1EEd2DbeB9fc23Ab483F447F38F289cA15f79Bac
-
-alUSD AMO: 0x9735f7d3ea56b454b24ffd74c58e9bd85cfad31b
-alETH AMO: 0xe761bf731a06fe8259fee05897b2687d56933110
-
-alUSD Conduit: 0xf65a1e41d0491621596d4b61b85e73e38cf7e424
-alETH Conduit: 0xefc8a5a82d09d1068d26ad57e2f57c0037c4f20f
-
-yDAI Adaptor: 0xA7AA5BE408B817A516b40Daea7a919664f13f193
-yUSDC Adaptor: 0x1D28D426e4e20B9d43130C23252b8eD6F9cB388E
-yDAI Adaptor: 0x5951f159eF502f0571A5D7e136a580DcadEa42Eb
-
-gALCX: 0x93dede06ae3b5590af1d4c111bc54c3f717e4b35
-
-Alchemist Whitelist: 0x78537a6CeBa16f412E123a90472C6E0e9A8F1132
-Transmuter Whitelist (DAI): 0xdd8AC2d5A739Bb4a591C5b0c7e613B810fE83fF1
-Transmuter Whitelist(USDC): 0x35b2c16de6F283Ab0949964d90cCf930f378ade6
-Transmuter Whitelist (USDT): 0x46f992D00C2Dfb6FbbbB64d69Ab353c2fC435ACE
+| Contract | Address |
+| ---- | ---- |
+| alUSD Alchemist | 0x5C6374a2ac4EBC38DeA0Fc1F8716e5Ea1AdD94dd |
+| alETH Alchemist | 0x062Bf725dC4cDF947aa79Ca2aaCCD4F385b13b5c |
+| Transmuter (DAI) | 0xA840C73a004026710471F727252a9a2800a5197F |
+| Transmuter (USDC) | 0x49930AD9eBbbc0EB120CCF1a318c3aE5Bb24Df55 |
+| Transmuter (USDT) | 0xfC30820ba6d045b95D13a5B8dF4fB0E6B5bdF5b9 |
+| TransmuterBuffer | 0x1EEd2DbeB9fc23Ab483F447F38F289cA15f79Bac |
+| alUSD AMO | 0x9735f7d3ea56b454b24ffd74c58e9bd85cfad31b |
+| alETH AMO | 0xe761bf731a06fe8259fee05897b2687d56933110 |
+| alUSD Conduit | 0xf65a1e41d0491621596d4b61b85e73e38cf7e424 |
+| alETH Conduit | 0xefc8a5a82d09d1068d26ad57e2f57c0037c4f20f |
+| yDAI Adaptor | 0xA7AA5BE408B817A516b40Daea7a919664f13f193 |
+| yUSDC Adaptor | 0x1D28D426e4e20B9d43130C23252b8eD6F9cB388E |
+| yDAI Adaptor | 0x5951f159eF502f0571A5D7e136a580DcadEa42Eb |
+| gALCX | 0x93dede06ae3b5590af1d4c111bc54c3f717e4b35 |
+| Alchemist Whitelist | 0x78537a6CeBa16f412E123a90472C6E0e9A8F1132 |
+| Transmuter Whitelist (DAI) | 0xdd8AC2d5A739Bb4a591C5b0c7e613B810fE83fF1 |
+| Transmuter Whitelist(USDC) | 0x35b2c16de6F283Ab0949964d90cCf930f378ade6 |
+| Transmuter Whitelist (USDT) | 0x46f992D00C2Dfb6FbbbB64d69Ab353c2fC435ACE |
