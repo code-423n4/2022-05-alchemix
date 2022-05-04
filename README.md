@@ -73,39 +73,54 @@ Alchemix Finance is a future-yield-backed synthetic asset platform and community
 
 All the contracts in this section are to be reviewed. Any contracts not in this list are to be ignored for this contest. A further breakdown of contracts and their dependencies can be found [here]().
 
-AlchemicTokenV2.sol (228 loc)
-CrossChainCanonicalAlchemicTokenV2.sol (22 loc)
-CrossChainCanonicalGALCX.sol (19 loc)
-gALCX.sol (110 loc)
-StakingPools.sol (441 loc)
-TransmuterBuffer.sol (571 loc)
-TransmuterConduit.sol (43 loc)
-TransmuterV2.sol (575 loc)
-WETHGateway.sol (96 loc)
+### Tokens 
 
-AutoleverageCurveFactoryethpool.sol (49 loc)
-AutoleverageCurveMetapool.sol (34 loc)
-EthAssetManager.sol (724 loc)
-ThreePoolAssetManager.sol (1040 loc)
+#### AlchemicTokenV2.sol (228 loc)
+#### CrossChainCanonicalAlchemicTokenV2.sol (22 loc)
+#### CrossChainCanonicalGALCX.sol (19 loc)
+#### gALCX.sol (110 loc)
 
-YearnTokenAdapter.sol (58 loc)
-FuseTokenAdapterV1.sol (109 loc)
-WstETHAdapterV1.sol (148 loc)
-RETHAdapterV1.sol (103 loc)
-VesperAdapterV1.sol (107 loc)
+### Core Protocol
+#### AlchemistV2.sol (1752 loc)
+#### TransmuterBuffer.sol (571 loc)
+#### TransmuterV2.sol (575 loc)
 
-libraries/
-FixedPointMath.sol (181 loc)
-Limiters.sol (102 loc)
-LiquidityMath.sol (49 loc)
-SafeCast.sol (29 loc)
-Sets.sol (68 loc)
-Tick.sol (120 loc)
-TokenUtils.sol (159 loc)
+### Core Protocol Vault Adapters
+#### YearnTokenAdapter.sol (58 loc)
+#### FuseTokenAdapterV1.sol (109 loc)
+#### WstETHAdapterV1.sol (148 loc)
+#### RETHAdapterV1.sol (103 loc)
+#### VesperAdapterV1.sol (107 loc)
+
+### Automated Market Operator
+#### TransmuterConduit.sol (43 loc)
+#### EthAssetManager.sol (724 loc)
+#### ThreePoolAssetManager.sol (1040 loc)
+
+### Staking Rewards
+#### StakingPools.sol (441 loc)
+
+### Helper Contracts
+#### WETHGateway.sol (96 loc)
+#### AutoleverageCurveFactoryethpool.sol (49 loc)
+#### AutoleverageCurveMetapool.sol (34 loc)
+
+### Helper Libraries
+#### FixedPointMath.sol (181 loc)
+#### Limiters.sol (102 loc)
+#### LiquidityMath.sol (49 loc)
+#### SafeCast.sol (29 loc)
+#### Sets.sol (68 loc)
+#### Tick.sol (120 loc)
+#### TokenUtils.sol (159 loc)
 
 ## Potential protocol concerns
 
 ## Areas of focus for Wardens
+
+We would like wardens to focus on any core functional logic, boundary case errors or similar issues which could be utilized by an attacker to take funds away from clients who have funds deposited in the protocol. We would also encourage focus on any mathematical accounting that could cause users to receive more or less credit than they should. That said, any errors may be submitted by wardens for review and potential reward as per the normal issue impact prioritization. Gas optimizations are welcome but not the main focus of this contest and thus at most 10% of the contest reward will be allocated to gas optimizations. For gas optimizations the most important flows are client deposit and withdrawal flows.
+
+If wardens are unclear on which areas to look at or which areas are important please feel free to ask in the contest Discord channel.
 
 ## Tests
 
