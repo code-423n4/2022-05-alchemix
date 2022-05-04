@@ -76,43 +76,82 @@ All the contracts in this section are to be reviewed. Any contracts not in this 
 ### Tokens 
 
 #### AlchemicTokenV2.sol (228 loc)
+The synthetic token minted by the protocol as an advance on user's yield.
 #### CrossChainCanonicalAlchemicTokenV2.sol (22 loc)
-#### CrossChainCanonicalGALCX.sol (19 loc)
+An upgradeable version that is compatible with crosschain bridges.
 #### gALCX.sol (110 loc)
+An autocompounding wrapper for ALCX that is the crosschain native token.
+#### CrossChainCanonicalGALCX.sol (19 loc)
+An upgradeable version that is compatible with crosschain bridges.
 
 ### Core Protocol
 #### AlchemistV2.sol (1752 loc)
+The AlchemistV2 is the core contract in any Alchemix debt-system that holds Account data and issues that system's debt tokens. The AlchemistV2 is flexible enough to accept deposits in the form of either yield-bearing-assets or underlying collateral assets (and wrapping said underlying tokens into their yield-bearing form).
+
+An Account in the Alchemist has multiple components. The first 2 data-points to understand are **balances** and **debt**.
+**Balances** is a mapping of yieldTokens to the Account's respective balance of Alchemist-shares. **Shares** represent a user's deposit of yieldTokens in the AlchemistV2, and provide an accounting abstraction that helps the AlchemistV2 avoid bank-run scenarios.
+**Debt** is an int256 type that represents both the account's **debt** (positive values) and **credit** (negative values).
+A Account manages its debt by tracking the **lastAccruedWeights** of the various **depositedTokens** that it is holding.
+A Account also has the ability to track **mintAllowances** and **withdrawAllowances** that allow 3rd-party accounts to mint and withdraw its assets.
 #### TransmuterBuffer.sol (571 loc)
+An interface contract to buffer funds between the Alchemist and the Transmuter.
+
 #### TransmuterV2.sol (575 loc)
+The TransmuterV2 is the main contract in any Alchemix debt-system that helps put upward pressure on the price of the debt-token relative to its collateral asset(s) by allowing any market participant to exchange the supported debt-token for underlying collateral at a 1:1 rate.
+Each TransmuterV2 supports a single underlyingToken as collateral, and is able to exchange debtToken for only that underlyingToken.
+The TransmuterV2 recieves underlyingTokens from the AlchemistV2 whenever any of the repay(), liquidate(), or harvest() functions are called. The repaid, liquidated, or harvested collateral is first sent to the TransmuterBuffer, where excess funds that are not exchanged in the TransmuterV2 can be deposited back into the AlchemistV2 to boost yields for Alchemist depositors, or be deployed elsewhere to help maintain the peg.
+When debtTokens are deposited into the TransmuterV2, a user recieves "exchanged tokens" into their account over time, representing the amount of debtToken that has been implicitly converted to underlyingToken that have dripped into the TransmuterV2. This rate of conversion is, at most, the rate that collateral is exchanged into the TransmuterV2 multiplied by their overall percent stake of debtTokens in the TransmuterV2. While collateral recieved from harvest() calls has a relatively stable rate, collateral recieved from repay() and liquidate() functions are entirely user dependent, causing the overall transmutation rate to potentially fluctuate.
+Additionally, there is a configurable flow rate in the TransmuterBuffer that can be used to control the flow of transmutable collateral. It acts as another cap on the speed at which funds are exchanged into the TransmuterV2.
 
 ### Core Protocol Vault Adapters
 #### YearnTokenAdapter.sol (58 loc)
+An adapter to invest user tokens into Yearn.
 #### FuseTokenAdapterV1.sol (109 loc)
+An adapter to invest user tokens into Fuse.
 #### WstETHAdapterV1.sol (148 loc)
+An adapter to invest user tokens into Lido's wstETH.
 #### RETHAdapterV1.sol (103 loc)
+An adapter to invest user tokens into Rocket Pool's rETH.
 #### VesperAdapterV1.sol (107 loc)
+An adapter to invest user tokens into Vesper.
 
 ### Automated Market Operator
 #### TransmuterConduit.sol (43 loc)
+A helper contract for admins to move funds between TransmuterV1 and TransmuterV2 during the protocol upgrade.
 #### EthAssetManager.sol (724 loc)
+An automated market operator to ensure peg stability on alETH and ETH.
 #### ThreePoolAssetManager.sol (1040 loc)
+An automated market operator to ensure peg stability on alUSD and stablecoins.
 
 ### Staking Rewards
 #### StakingPools.sol (441 loc)
+A staking contract to give ALCX rewards to various LP and single-sided stakers.
 
 ### Helper Contracts
 #### WETHGateway.sol (96 loc)
+Turns ETH into WETH and deposits into the Alchemist.
 #### AutoleverageCurveFactoryethpool.sol (49 loc)
+Lets users zap into a leveraged collateralized debt position on alETH.
 #### AutoleverageCurveMetapool.sol (34 loc)
+Lets users zap into a leveraged collateralized debt position on alUSD.
+#### Whitelist.sol (63 loc)
+A whitelist used for the beta stage of protocol release, restricts access to all EOAs and certain whitelisted contracts.
 
 ### Helper Libraries
 #### FixedPointMath.sol (181 loc)
+A fixed point math library.
 #### Limiters.sol (102 loc)
+A library to limit debt taken out in a certain timeframe.
 #### LiquidityMath.sol (49 loc)
+More fixed point math helpers.
 #### SafeCast.sol (29 loc)
+Transforms values between int256 and uint256.
 #### Sets.sol (68 loc)
+Implementation of the set datatype.
 #### Tick.sol (120 loc)
+Implements a linked-list system for use in calculating users' earned yield as it accrues.
 #### TokenUtils.sol (159 loc)
+Helper methods for interacting with a broad range of contracts that don't implement the ERC20 spec precisely.
 
 ## Potential protocol concerns
 
