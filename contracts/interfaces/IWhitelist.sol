@@ -1,9 +1,5 @@
 pragma solidity ^0.8.11;
 
-import "../base/Errors.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
-import "../libraries/Sets.sol";
-
 /// @title  Whitelist
 /// @author Alchemix Finance
 interface IWhitelist {
