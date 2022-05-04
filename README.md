@@ -34,23 +34,30 @@ An autocompounding wrapper for ALCX that is the crosschain native token.
 An upgradeable version that is compatible with crosschain bridges.
 
 ### Core Protocol
+![AlchemixV2 token flows](./img/AlchemixV2_token_flows.jpg)
+![AlchemixV2 state-updating function calls](./img/AlchemixV2_function_calls.jpg)
 #### AlchemistV2.sol (1752 loc)
 The AlchemistV2 is the core contract in any Alchemix debt-system that holds Account data and issues that system's debt tokens. The AlchemistV2 is flexible enough to accept deposits in the form of either yield-bearing-assets or underlying collateral assets (and wrapping said underlying tokens into their yield-bearing form).
 
 An Account in the Alchemist has multiple components. The first 2 data-points to understand are **balances** and **debt**.
 **Balances** is a mapping of yieldTokens to the Account's respective balance of Alchemist-shares. **Shares** represent a user's deposit of yieldTokens in the AlchemistV2, and provide an accounting abstraction that helps the AlchemistV2 avoid bank-run scenarios.
 **Debt** is an int256 type that represents both the account's **debt** (positive values) and **credit** (negative values).
-A Account manages its debt by tracking the **lastAccruedWeights** of the various **depositedTokens** that it is holding.
-A Account also has the ability to track **mintAllowances** and **withdrawAllowances** that allow 3rd-party accounts to mint and withdraw its assets.
+An Account manages its debt by tracking the **lastAccruedWeights** of the various **depositedTokens** that it is holding.
+An Account also has the ability to track **mintAllowances** and **withdrawAllowances** that allow 3rd-party accounts to mint and withdraw its assets.
 #### TransmuterBuffer.sol (571 loc)
 An interface contract to buffer funds between the Alchemist and the Transmuter.
+The TransmuterBuffer sits between the Alchemist and Transmuter, buffering funds that are passed to it as a result of calls to **repay()**, **liquidate()**, or **harvest()**.  Each Transmuter handles a single collateral type.  Each TransmuterBuffer handles a single synthetic type, and all collateral types underlying that synthetic.
 
 #### TransmuterV2.sol (575 loc)
 The TransmuterV2 is the main contract in any Alchemix debt-system that helps put upward pressure on the price of the debt-token relative to its collateral asset(s) by allowing any market participant to exchange the supported debt-token for underlying collateral at a 1:1 rate.
-Each TransmuterV2 supports a single underlyingToken as collateral, and is able to exchange debtToken for only that underlyingToken.
-The TransmuterV2 recieves underlyingTokens from the AlchemistV2 whenever any of the repay(), liquidate(), or harvest() functions are called. The repaid, liquidated, or harvested collateral is first sent to the TransmuterBuffer, where excess funds that are not exchanged in the TransmuterV2 can be deposited back into the AlchemistV2 to boost yields for Alchemist depositors, or be deployed elsewhere to help maintain the peg.
-When debtTokens are deposited into the TransmuterV2, a user recieves "exchanged tokens" into their account over time, representing the amount of debtToken that has been implicitly converted to underlyingToken that have dripped into the TransmuterV2. This rate of conversion is, at most, the rate that collateral is exchanged into the TransmuterV2 multiplied by their overall percent stake of debtTokens in the TransmuterV2. While collateral recieved from harvest() calls has a relatively stable rate, collateral recieved from repay() and liquidate() functions are entirely user dependent, causing the overall transmutation rate to potentially fluctuate.
+Each TransmuterV2 supports a single debtToken and a single underlyingToken as collateral, and is able to exchange the debtToken for only that underlyingToken.
+The TransmuterV2 recieves underlyingTokens from the AlchemistV2 (via the TransmuterBuffer) whenever any of the **repay()**, **liquidate()**, or **harvest()** functions are called. The repaid, liquidated, or harvested collateral is first sent to the TransmuterBuffer, where excess funds that are not exchanged in the TransmuterV2 can be deposited back into the AlchemistV2 to boost yields for Alchemist depositors, or be deployed elsewhere (like the Elixir AMO) to help maintain the peg.
+After a user deposits debtTokens into the TransmuterV2, they recieve "exchanged tokens" into their account over time, representing the amount of debtToken that has been implicitly converted to underlyingToken that have dripped into the TransmuterV2. This rate of conversion is, at most, the rate that collateral is exchanged into the TransmuterV2 multiplied by their overall percent stake of debtTokens in the TransmuterV2. While collateral recieved from harvest() calls has a relatively stable rate, collateral recieved from repay() and liquidate() functions are entirely user dependent, causing the overall transmutation rate to potentially fluctuate.
 Additionally, there is a configurable flow rate in the TransmuterBuffer that can be used to control the flow of transmutable collateral. It acts as another cap on the speed at which funds are exchanged into the TransmuterV2.
+
+#### **A note on Proxies:**
+The above 3 contracts are the main logic controllers in any Alchemix debt system.  In order to ensure that AlchemixV2 is easily upgradeable should any issues arise, they have each been proxied using TransmuterUpgradeableProxy.
+![AlchemixV2 state-updating function calls](./img/AlchemixV2_proxy_configurations.jpg)
 
 ### Core Protocol Vault Adapters
 #### YearnTokenAdapter.sol (58 loc)
@@ -66,11 +73,19 @@ An adapter to invest user tokens into Vesper.
 
 ### Automated Market Operator
 #### TransmuterConduit.sol (43 loc)
-A helper contract for admins to move funds between transmuters and the AMO.
+A helper contract for admins to migrate funds from the V1 Transmuter to the V2 Transmuter or AMO.
 #### EthAssetManager.sol (724 loc)
 An automated market operator to ensure peg stability on alETH and ETH.
 #### ThreePoolAssetManager.sol (1040 loc)
 An automated market operator to ensure peg stability on alUSD and stablecoins.
+
+#### Elixir
+Both the **EthAssetManager** and **ThreePoolAssetManager** are considered Elixirs.  They operate on the assets of separate AlchemixV2 debt systems, but perform essentially the same tasks.  Their 2 main modes of operating are:
+1) Add **underlyingTokens** to the curve pool and deposit the resulting curve LP tokens into Convex.
+2) Withdraw curve LP tokens from Convex and recall **underlyingTokens** from the curve pool.
+
+Each Elixir receives **underlyingTokens** from its associated **TransmuterBuffer**
+![AlchemixV2 state-updating function calls](./img/AlchemixV2_elixir.jpg)
 
 ### Staking Rewards
 #### StakingPools.sol (441 loc)
@@ -78,7 +93,7 @@ A staking contract to give ALCX rewards to various LP and single-sided stakers.
 
 ### Helper Contracts
 #### WETHGateway.sol (96 loc)
-Turns ETH into WETH and deposits into the Alchemist.
+Turns ETH into WETH and deposits into the Alchemist.  Also withdraws WETH from the Alchemist and exchanges it for ETH to send to the designated receiver.
 #### AutoleverageCurveFactoryethpool.sol (49 loc)
 Lets users zap into a leveraged collateralized debt position on alETH.
 #### AutoleverageCurveMetapool.sol (34 loc)
