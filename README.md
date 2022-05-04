@@ -20,7 +20,7 @@ Alchemix Finance is a future-yield-backed synthetic asset platform and community
 
 ## Smart Contracts
 
-All the contracts in this section are to be reviewed. Any contracts not in this list are to be ignored for this contest. To deeply understand the protocol, wardens may find helpful the [user docs](https://alchemix-finance.gitbook.io/alchemix-finance/), [developer docs](https://alchemix-finance.gitbook.io/v2/), our [Medium posts](https://alchemixfi.medium.com/), or a [popular YouTube explainer focusing on V1](https://www.youtube.com/watch?v=0JAeaRwV0OA).
+All the contracts in this section are to be reviewed. Any contracts not in this list are to be ignored for this contest. To deeply understand the protocol, wardens may find helpful the [user docs](https://alchemix-finance.gitbook.io/alchemix-finance/), [developer docs](https://alchemix-finance.gitbook.io/v2/), our [Medium posts](https://alchemixfi.medium.com/), or a [popular YouTube explainer focusing on V1](https://www.youtube.com/watch?v=0JAeaRwV0OA).  The [audit report from Runtime Verification](https://github.com/runtimeverification/publications/blob/main/reports/smart-contracts/Alchemix_v2.pdf) also contains valuable insight into protocol invariants.
 
 ### Tokens 
 
@@ -46,7 +46,8 @@ An Account manages its debt by tracking the **lastAccruedWeights** of the variou
 An Account also has the ability to track **mintAllowances** and **withdrawAllowances** that allow 3rd-party accounts to mint and withdraw its assets.
 #### TransmuterBuffer.sol (571 loc)
 An interface contract to buffer funds between the Alchemist and the Transmuter.
-The TransmuterBuffer sits between the Alchemist and Transmuter, buffering funds that are passed to it as a result of calls to **repay()**, **liquidate()**, or **harvest()**.  Each Transmuter handles a single collateral type.  Each TransmuterBuffer handles a single synthetic type, and all collateral types underlying that synthetic.
+The TransmuterBuffer sits between the Alchemist and Transmuter, buffering funds that are passed to it as a result of calls to **repay()**, **liquidate()**, or **harvest()**.  Each TransmuterBuffer handles a single synthetic type, and all collateral types underlying that synthetic.
+The TransmuterBuffer has configurable flow rates that determine the maximum rate that collateral can be passed to its transmuter.  Funds that are held in the TransmuterBuffer but have not yet been exchanged in the Transmuter can be redeposited into the Alchemist to boost yield for depositors, or sent to the Elixir.  Funds that have been exchanged into the Transmuter must remain in the TransmuterBuffer.
 
 #### TransmuterV2.sol (575 loc)
 The TransmuterV2 is the main contract in any Alchemix debt-system that helps put upward pressure on the price of the debt-token relative to its collateral asset(s) by allowing any market participant to exchange the supported debt-token for underlying collateral at a 1:1 rate.
