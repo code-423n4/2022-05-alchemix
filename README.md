@@ -20,7 +20,7 @@ Alchemix Finance is a future-yield-backed synthetic asset platform and community
 
 ## Smart Contracts
 
-All the contracts in this section are to be reviewed. Any contracts not in this list are to be ignored for this contest. A further breakdown of contracts and their dependencies can be found [here]().
+All the contracts in this section are to be reviewed. Any contracts not in this list are to be ignored for this contest. To deeply understand the protocol, wardens may find helpful the [user docs](https://alchemix-finance.gitbook.io/alchemix-finance/), [developer docs](https://alchemix-finance.gitbook.io/v2/), our [Medium posts](https://alchemixfi.medium.com/), or a [popular YouTube explainer focusing on V1](https://www.youtube.com/watch?v=0JAeaRwV0OA).
 
 ### Tokens 
 
@@ -104,6 +104,8 @@ Helper methods for interacting with a broad range of contracts that don't implem
 
 ## Potential protocol concerns
 
+Securing user funds is the top priority. On top of that, ensuring all accounting logic functions exactly as specified without any reentrancy vulnerabilities. We encourage wardens to focus on the flow of funds throughout the entire yield generation process.
+
 ## Areas of focus for Wardens
 
 We would like wardens to focus on any core functional logic, boundary case errors or similar issues which could be utilized by an attacker to take funds away from clients who have funds deposited in the protocol. We would also encourage focus on any mathematical accounting that could cause users to receive more or less credit than they should. That said, any errors may be submitted by wardens for review and potential reward as per the normal issue impact prioritization. Gas optimizations are welcome but not the main focus of this contest and thus at most 10% of the contest reward will be allocated to gas optimizations. For gas optimizations the most important flows are client deposit and withdrawal flows.
@@ -127,16 +129,24 @@ The following contracts are deployed:
 | Transmuter (DAI) | 0xA840C73a004026710471F727252a9a2800a5197F |
 | Transmuter (USDC) | 0x49930AD9eBbbc0EB120CCF1a318c3aE5Bb24Df55 |
 | Transmuter (USDT) | 0xfC30820ba6d045b95D13a5B8dF4fB0E6B5bdF5b9 |
-| TransmuterBuffer | 0x1EEd2DbeB9fc23Ab483F447F38F289cA15f79Bac |
+| Transmuter (ETH) | 0x03323143a5f0D0679026C2a9fB6b0391e4D64811 |
+| TransmuterBuffer (alETH) | 0xbc2FB245594a68c927C930FBE2d00680A8C90B9e |
+| TransmuterBuffer (alUSD) | 0x1EEd2DbeB9fc23Ab483F447F38F289cA15f79Bac |
 | alUSD AMO | 0x9735f7d3ea56b454b24ffd74c58e9bd85cfad31b |
 | alETH AMO | 0xe761bf731a06fe8259fee05897b2687d56933110 |
 | alUSD Conduit | 0xf65a1e41d0491621596d4b61b85e73e38cf7e424 |
 | alETH Conduit | 0xefc8a5a82d09d1068d26ad57e2f57c0037c4f20f |
-| yDAI Adaptor | 0xA7AA5BE408B817A516b40Daea7a919664f13f193 |
-| yUSDC Adaptor | 0x1D28D426e4e20B9d43130C23252b8eD6F9cB388E |
-| yDAI Adaptor | 0x5951f159eF502f0571A5D7e136a580DcadEa42Eb |
+| yDAI Adapter | 0xA7AA5BE408B817A516b40Daea7a919664f13f193 |
+| yUSDC Adapter | 0x1D28D426e4e20B9d43130C23252b8eD6F9cB388E |
+| yDAI Adapter | 0x5951f159eF502f0571A5D7e136a580DcadEa42Eb |
+| rETH Adapter | 0x7A172816C0560964E6aD54EF54AFABB035614047 |
+| wstETH Adapter | 0x3c2c6FA5398CDD933465F6fD04F3575f7201BCF8 |
 | gALCX | 0x93dede06ae3b5590af1d4c111bc54c3f717e4b35 |
 | Alchemist Whitelist | 0x78537a6CeBa16f412E123a90472C6E0e9A8F1132 |
 | Transmuter Whitelist (DAI) | 0xdd8AC2d5A739Bb4a591C5b0c7e613B810fE83fF1 |
 | Transmuter Whitelist(USDC) | 0x35b2c16de6F283Ab0949964d90cCf930f378ade6 |
-| Transmuter Whitelist (USDT) | 0x46f992D00C2Dfb6FbbbB64d69Ab353c2fC435ACE |
+| Transmuter Whitelist (USDT) | 0x46f992D00C2Dfb6FbbbB64d69Ab353c2fC435ACE | WETHGateway | 0xA22a7ec2d82A471B1DAcC4B37345Cf428E76D67A |
+| Autoleverage alETH | 0x0256fc7ba8d1513be9661c504f36e075942d9a49 |
+| Autoleverage alUSD | 0xe3cfdbfa339b749c6df27854e11df3398b12d56e |
+
+
