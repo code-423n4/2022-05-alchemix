@@ -20,7 +20,7 @@ Alchemix Finance is a future-yield-backed synthetic asset platform and community
 
 ## Smart Contracts
 
-All the contracts in this section are to be reviewed. Any contracts not in this list are to be ignored for this contest. To deeply understand the protocol, wardens may find helpful the [user docs](https://alchemix-finance.gitbook.io/alchemix-finance/), [developer docs](https://alchemix-finance.gitbook.io/v2/), our [Medium posts](https://alchemixfi.medium.com/), or a [popular YouTube explainer focusing on V1](https://www.youtube.com/watch?v=0JAeaRwV0OA).  The [audit report from Runtime Verification](https://github.com/runtimeverification/publications/blob/main/reports/smart-contracts/Alchemix_v2.pdf) also contains valuable insight into protocol invariants.
+All the contracts in the `contracts-full` folder are to be reviewed. The `contracts-hardhat` is a subset of this that you can use to run the test suite. Any contracts not in this list are to be ignored for this contest. To deeply understand the protocol, wardens may find helpful the [user docs](https://alchemix-finance.gitbook.io/alchemix-finance/), [developer docs](https://alchemix-finance.gitbook.io/v2/), our [Medium posts](https://alchemixfi.medium.com/), or a [popular YouTube explainer focusing on V1](https://www.youtube.com/watch?v=0JAeaRwV0OA).  The [audit report from Runtime Verification](https://github.com/runtimeverification/publications/blob/main/reports/smart-contracts/Alchemix_v2.pdf) also contains valuable insight into protocol invariants.
 
 ### Tokens 
 
@@ -165,4 +165,14 @@ The following contracts are deployed:
 | Autoleverage alETH | 0x0256fc7ba8d1513be9661c504f36e075942d9a49 |
 | Autoleverage alUSD | 0xe3cfdbfa339b749c6df27854e11df3398b12d56e |
 
+## Running tests
 
+Set your node version to version 16, the current LTS.
+```
+yarn install
+npx hardhat typechain
+npx hardhat compile
+npx hardhat test
+```
+
+This will run everything in the `test-hardhat` folder against the contracts subset contained in `contracts-hardhat`. Note that there are additional contracts within `contracts-full` that were developed and tested using forge, so these are not compatible with the hardhat test suite but are still within contest scope.
