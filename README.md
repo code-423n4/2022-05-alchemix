@@ -165,4 +165,11 @@ The following contracts are deployed:
 | Autoleverage alETH | 0x0256fc7ba8d1513be9661c504f36e075942d9a49 |
 | Autoleverage alUSD | 0xe3cfdbfa339b749c6df27854e11df3398b12d56e |
 
+## Running tests
 
+nvm use --lts
+yarn install
+npx hardhat typechain
+npx hardhat test test-hardhat/*
+
+Doesn't work with npm, maybe yarn?

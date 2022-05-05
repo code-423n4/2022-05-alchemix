@@ -102,3 +102,13 @@ dist
 
 # TernJS port file
 .tern-port
+
+# Hardhat artifacts
+.openzeppelin/
+artifacts/
+cache/
+typechain/
+
+# Node artifacts
+yarn.lock
+
