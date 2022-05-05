@@ -20,7 +20,7 @@ Alchemix Finance is a future-yield-backed synthetic asset platform and community
 
 ## Smart Contracts
 
-All the contracts in this section are to be reviewed. Any contracts not in this list are to be ignored for this contest. To deeply understand the protocol, wardens may find helpful the [user docs](https://alchemix-finance.gitbook.io/alchemix-finance/), [developer docs](https://alchemix-finance.gitbook.io/v2/), our [Medium posts](https://alchemixfi.medium.com/), or a [popular YouTube explainer focusing on V1](https://www.youtube.com/watch?v=0JAeaRwV0OA).  The [audit report from Runtime Verification](https://github.com/runtimeverification/publications/blob/main/reports/smart-contracts/Alchemix_v2.pdf) also contains valuable insight into protocol invariants.
+All the contracts in the `contracts-full` folder are to be reviewed. The `contracts-hardhat` is a subset of this that you can use to run the test suite. Any contracts not in this list are to be ignored for this contest. To deeply understand the protocol, wardens may find helpful the [user docs](https://alchemix-finance.gitbook.io/alchemix-finance/), [developer docs](https://alchemix-finance.gitbook.io/v2/), our [Medium posts](https://alchemixfi.medium.com/), or a [popular YouTube explainer focusing on V1](https://www.youtube.com/watch?v=0JAeaRwV0OA).  The [audit report from Runtime Verification](https://github.com/runtimeverification/publications/blob/main/reports/smart-contracts/Alchemix_v2.pdf) also contains valuable insight into protocol invariants.
 
 ### Tokens 
 
@@ -167,9 +167,12 @@ The following contracts are deployed:
 
 ## Running tests
 
-nvm use --lts
+Set your node version to version 16, the current LTS.
+```
 yarn install
 npx hardhat typechain
-npx hardhat test test-hardhat/*
+npx hardhat compile
+npx hardhat test
+```
 
-Doesn't work with npm, maybe yarn?
+This will run everything in the `test-hardhat` folder against the contracts subset contained in `contracts-hardhat`. Note that there are additional contracts within `contracts-full` that were developed and tested using forge, so these are not compatible with the hardhat test suite but are still within contest scope.
