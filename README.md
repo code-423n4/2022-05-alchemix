@@ -34,8 +34,8 @@ An autocompounding wrapper for ALCX that is the crosschain native token.
 An upgradeable version that is compatible with crosschain bridges.
 
 ### Core Protocol
-![AlchemixV2 token flows](./img/AlchemixV2_token_flows.jpg)
-![AlchemixV2 state-updating function calls](./img/AlchemixV2_function_calls.jpg)
+![AlchemixV2 token flows](https://github.com/code-423n4/2022-05-alchemix/blob/main/img/AlchemixV2_token_flows.jpg)
+![AlchemixV2 state-updating function calls](https://github.com/code-423n4/2022-05-alchemix/blob/main/img/AlchemixV2_function_calls.jpg)
 #### AlchemistV2.sol (1752 loc)
 The AlchemistV2 is the core contract in any Alchemix debt-system that holds Account data and issues that system's debt tokens. The AlchemistV2 is flexible enough to accept deposits in the form of either yield-bearing-assets or underlying collateral assets (and wrapping said underlying tokens into their yield-bearing form).
 
@@ -58,7 +58,7 @@ Additionally, there is a configurable flow rate in the TransmuterBuffer that can
 
 #### **A note on Proxies:**
 The above 3 contracts are the main logic controllers in any Alchemix debt system.  In order to ensure that AlchemixV2 is easily upgradeable should any issues arise, they have each been proxied using TransmuterUpgradeableProxy.
-![AlchemixV2 state-updating function calls](./img/AlchemixV2_proxy_configurations.jpg)
+![AlchemixV2 state-updating function calls](https://github.com/code-423n4/2022-05-alchemix/blob/main/img/AlchemixV2_proxy_configurations.jpg)
 
 ### Core Protocol Vault Adapters
 #### YearnTokenAdapter.sol (58 loc)
@@ -86,7 +86,7 @@ Both the **EthAssetManager** and **ThreePoolAssetManager** are considered Elixir
 2) Withdraw curve LP tokens from Convex and recall **underlyingTokens** from the curve pool.
 
 Each Elixir receives **underlyingTokens** from its associated **TransmuterBuffer**
-![AlchemixV2 state-updating function calls](./img/AlchemixV2_elixir.jpg)
+![AlchemixV2 state-updating function calls](https://github.com/code-423n4/2022-05-alchemix/blob/main/img/AlchemixV2_elixir.jpg)
 
 ### Staking Rewards
 #### StakingPools.sol (441 loc)
