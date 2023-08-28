@@ -1,0 +1,218 @@
+==============================================================
+Guild: Code4rena
+Channel: ARCHIVE-Q2-2022 / ☑alchemix-may5
+==============================================================
+
+[05/03/2022 2:10 PM] kartoonjoy
+👋 Hello and welcome to the contest channel for the $125K DAI **Alchemix** contest!
+
+📆 Contest opens May 5, 2022 at 0:00 UTC and runs through May 18, 2022 at 23:59 UTC (14 days).
+
+Please give a warm welcome to the Alchemix team, particularly @foobar and @thetechnocratic, who will be available for questions either here in the channel or via DM.
+
+We'll be posting relevant links, documentation, etc. here, so if you intend to participate in this contest, consider enabling notifications for this channel. 🐺 ⏰
+
+Contest Page: https://code4rena.com/contests/2022-05-alchemix-contest
+
+{Embed}
+https://code4rena.com/contests/2022-05-alchemix-contest
+Code4rena Alchemix contest
+$125,000 DAI
+5 May 2022—18 May 2022
+Code4rena - ARCHIVE-Q2-2022 - ☑alchemix-may5 [971041376785539093].txt_Files/C4-banner-7C19B.png
+
+{Reactions}
+🔥 (5) 
+
+[05/05/2022 12:42 AM] thetechnocratic
+hello wardens
+
+{Reactions}
+👋 (6) 
+
+[05/05/2022 12:43 AM] thetechnocratic
+dms are open for this server :PepeSorcerer:
+
+
+[05/05/2022 2:08 AM] foobar#0001
+Hey wardens! We've spun up a specialized discord server where each team can have a private channel to talk with us at Alchemix. Can't wait to see you there! https://discord.gg/Y8BYWKN2sU
+
+{Stickers}
+Code4rena - ARCHIVE-Q2-2022 - ☑alchemix-may5 [971041376785539093].txt_Files/751606379340365864-AAEFA.json
+
+{Reactions}
+nice (2) thankyou (3) 
+
+[05/05/2022 7:25 AM] Deleted User
+"Submissions can only be made in the second week of the contest"
+Does it mean if I found something, I should wait 7 days to submit it?
+
+
+[05/05/2022 7:25 AM] Deleted User
+@foobar
+
+
+[05/05/2022 11:48 AM] fufanuu
+alchemix repo is missing all the hardhat configs/etc needed to run tests on the repo, it's just solidity contracts, is this intended?
+
+
+[05/05/2022 1:12 PM] foobar#0001
+This wording is outdated, it's been corrected & you can submit any time!
+
+{Reactions}
+🙏 thankyou 
+
+[05/05/2022 5:53 PM] foobar#0001
+The repo has been updated with configs and instructions for running the test suite. Enjoy! https://github.com/code-423n4/2022-05-alchemix#running-tests
+
+{Embed}
+https://github.com/code-423n4/2022-05-alchemix
+GitHub - code-423n4/2022-05-alchemix
+Contribute to code-423n4/2022-05-alchemix development by creating an account on GitHub.
+Code4rena - ARCHIVE-Q2-2022 - ☑alchemix-may5 [971041376785539093].txt_Files/58b16f0c-7fca-4180-bec0-a9a1e71e7aa3-04B6A
+
+
+[05/05/2022 6:16 PM] Deleted User
+@foobar@thetechnocratic  is yieldToken is the one alchemix team create using standard ERC20 contract?
+While underlyingToken is the one that user may wrap into yieldToken?
+
+
+[05/05/2022 6:23 PM] foobar#0001
+Both underlyingToken and yieldToken are external ERC20s. For example, if a user deposits DAI into an Alchemix vault, DAI is the underlyingToken, yvDAI (yearn vault DAI) is the yieldToken whose contract is controlled by Yearn, and alUSD is the synthetic token issued by Alchemix.
+
+{Reactions}
+🙏 
+
+[05/05/2022 6:55 PM] Deleted User
+@kartoonjoy | C4 🎇🎇 @thetechnocratic @foobar @Fufanuu 
+Where did the contracts go?
+https://github.com/code-423n4/2022-05-alchemix/tree/main/contracts
+
+was in the middle of auditing them
+
+
+[05/05/2022 6:56 PM] foobar#0001
+Folder is `contracts-full`. Structure won't change again
+
+
+[05/05/2022 6:57 PM] Deleted User
+Thanks, I thought its gone or I was banned haha
+
+{Reactions}
+ohno 
+
+[05/05/2022 7:19 PM] fufanuu
+thanks ser
+
+
+[05/06/2022 6:07 PM] p_crypt0
+Auditing alchemix is quite a mammoth task (as it should be ig)🤣
+
+
+[05/07/2022 12:20 PM] fufanuu
+running yarn install on alchemix repo errors w/
+
+```
+error Command failed.
+Exit code: 128
+Command: git
+Arguments: ls-remote --tags --heads git@github.com:alchemix-finance/familiar.git
+Directory: /mnt/d/Projects/code4arena/2022-05-alchemix
+Output:
+ERROR: Repository not found.
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+```
+
+
+[05/08/2022 1:08 AM] foobar#0001
+That dependency isn’t necessary here, removed it
+
+
+[05/08/2022 2:27 AM] fufanuu
+thanks foo
+
+
+[05/08/2022 3:02 AM] fufanuu
+that did it.
+
+
+[05/08/2022 8:32 PM] 0xdjango
+Unrelated to the contest, just found it funny that @foobar was in my recommended today
+
+{Attachments}
+Code4rena - ARCHIVE-Q2-2022 - ☑alchemix-may5 [971041376785539093].txt_Files/IMG_9458-C2A76.png
+
+{Reactions}
+🤣 (8) 
+
+[05/09/2022 7:34 PM] 0xdjango
+Can you please explain this quote from your docs to me? Since users can deposit ETH as collateral, can't their debt go up?
+
+"There will never be a liquidation of a user's collateral unless they do it themselves because your debt will only ever go down. Shortly after launch, more stablecoins will be added as collateral in order to borrow alUSD."
+
+
+[05/09/2022 8:05 PM] foobar#0001
+Collateral and debt are always like-kind. So you deposit ETH and take an alETH loan. This means ETH/USD fluctuations don't affect your health factor
+
+
+[05/09/2022 8:09 PM] 0xdjango
+Ah cool, thanks!
+
+
+[05/09/2022 8:49 PM] 0xdjango
+Also in the docs “Whitelist.sol (63 loc)
+
+A whitelist used for the beta stage of protocol release, restricts access to all EOAs and certain whitelisted contracts.”
+
+Do you have plans on removing the whitelist functionality after beta?
+
+
+[05/09/2022 9:53 PM] thetechnocratic
+yes, eventually we would like to disable the whitelists entirely. though we want to be sure the protocol is as secure and resistant to exploits as possible, bc removing the whitelists invites any and all code to plugin to the system. (this contest can be thought fo as a step towards removing the whitelists)
+
+{Reactions}
+👍 (2) 
+
+[05/17/2022 12:08 PM] dravee
+LMAO L134-L135 😂 :
+```jsx
+File: WstETHAdapterV1.sol
+133:         uint256 received = IStableSwap2Pool(curvePool).exchange(
+134:             int128(uint128(stEthPoolIndex)), // Why are we here, just to suffer?
+135:             int128(uint128(ethPoolIndex)),   //                       (╥﹏╥)
+```
+
+{Reactions}
+😄 (2) 😂 (7) 
+
+[05/17/2022 1:00 PM] 0xsorrynotsorry
+Looks like Nietzsche has commented. Lol
+
+{Reactions}
+😂 (5) 
+
+[05/17/2022 3:47 PM] kenzoagada
+ThreePoolAssetManager
+
+{Attachments}
+Code4rena - ARCHIVE-Q2-2022 - ☑alchemix-may5 [971041376785539093].txt_Files/unknown-9507B.png
+
+{Reactions}
+😆 (13) 🥲 (4) 
+
+[05/19/2022 12:02 AM] C4
+**🚨 CONTEST ALERT**
+
+@🐺wardens The Alchemix contest is now closed! Huge thanks to everyone who participated 🔍, whether you submitted a finding or not.
+
+What's next: the Alchemix team will review the findings over the next couple of days, and then we'll pass them off to the judge. Keep an eye on #📢announcements for regular updates on how the contest is progressing through awarding 🤑🏆, judging 🧑‍⚖️ and reporting 📜. Feel free to ping a gardener if you have questions along the way!
+
+{Reactions}
+👍 
+
+==============================================================
+Exported 30 message(s)
+==============================================================
